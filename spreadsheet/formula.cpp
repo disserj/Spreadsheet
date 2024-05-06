@@ -15,10 +15,11 @@ class Formula : public FormulaInterface {
 public:
 // Реализуйте следующие методы:
     explicit Formula(std::string expression) 
-        try 
-        : ast_(ParseFormulaAST(std::move(expression))) {
-        } catch (const std::exception &exc) {       std::throw_with_nested(FormulaException(exc.what()));
-        }
+        try
+            :ast_(ParseFormulaAST(std::move(expression))) {
+        }catch (const std::exception &exc) {      
+            std::throw_with_nested(FormulaException(exc.what()));
+    }
     //новый Evaluate
     Value Evaluate(const SheetInterface& sheet) const override {
         const std::function<double(Position)> args = [&sheet](const Position p)->double {
