@@ -9,6 +9,7 @@
 #include <memory>
 #include <optional>
 #include <sstream>
+#include <limits>
 
 namespace ASTImpl {
 
@@ -150,21 +151,24 @@ public:
     double Evaluate(const std::function<double(Position)>& args) const override {
         double result=0.0;
        switch (type_) {
+            auto lhs_eval = lhs_->Evaluate(args);
+            auto rhs_eval = rhs_->Evaluate(args);
+           
             case Add:
-               result= (lhs_->Evaluate(args))+(rhs_->Evaluate(args));
+               result= lhs_eval+rhs_eval;
                break;
             case Subtract:
-               result= (lhs_->Evaluate(args))-(rhs_->Evaluate(args));
+               result= lhs_eval-rhs_eval;
                break;
             case Multiply:
-               result= (lhs_->Evaluate(args))*(rhs_->Evaluate(args));
+               result= lhs_eval*rhs_eval;
                break;
             case Divide:
-                if(rhs_->Evaluate(args)==0.0)
+                if(std::fabs(rhs_eval - 0.0) <= std::numeric_limits<double>::epsilon())
                     throw FormulaError(FormulaError::Category::Arithmetic);
                     
                 
-               result= (lhs_->Evaluate(args))/(rhs_->Evaluate(args));
+               result= lhs_eval/rhs_eval;
                break;
                 
         }
