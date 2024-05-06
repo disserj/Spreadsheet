@@ -100,11 +100,11 @@ bool Cell::HasCircularDependency(std::unique_ptr<FormulaImpl>&& some_temporary_v
     return false;      
 }
 
-void Cell::InvalidateCache(bool flag){
-        if(flag || std::get<std::unique_ptr<FormulaImpl>>(impl_)->IsCacheValid()) {
+void Cell::InvalidateCache(bool fush_cache){
+        if(fush_cache || std::get<std::unique_ptr<FormulaImpl>>(impl_)->IsCacheValid()) {
         std::get<std::unique_ptr<FormulaImpl>>(impl_)->ResetCache();
-        for (auto i : dependent_cells) {
-            i->InvalidateCache();
+        for (auto& cell : dependent_cells) {
+            cell->InvalidateCache();
         }
     }
 }
