@@ -92,13 +92,13 @@ bool Cell::HasCircularDependency(std::unique_ptr<FormulaImpl>&& some_temporary_v
 
         if (referenced.find(current) != referenced.end()) return true;
         
-        for (auto& i : current->dependent_cells) {
-            if (visited.find(i) == visited.end()) to_visit.push(i);
+        for (auto& cell : current->dependent_cells) {
+            if (visited.find(cell) == visited.end()) to_visit.push(cell);
         }
     }
 
     return false;      
-    }
+}
 
 void Cell::InvalidateCache(bool flag){
         if(flag || std::get<std::unique_ptr<FormulaImpl>>(impl_)->IsCacheValid()) {
