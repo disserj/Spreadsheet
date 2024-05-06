@@ -14,8 +14,7 @@ Sheet::~Sheet() {}
 
 void Sheet::SetCell(Position pos, std::string text)
 {
-   
-    if(!pos.IsValid()){
+   if(!pos.IsValid()){
         throw InvalidPositionException("invalid position");
        
     }
@@ -28,8 +27,6 @@ void Sheet::SetCell(Position pos, std::string text)
     }
     
     ptr->Set(std::move(text));
-   
-    
 }
 
 const CellInterface* Sheet::GetCell(Position pos) const {
