@@ -28,13 +28,8 @@ public:
     void PrintValues(std::ostream& output) const override;
     void PrintTexts(std::ostream& output) const override;
 
-	// Можете дополнить ваш класс нужными полями и методами
-    
     const Cell* GetCellPtr(Position pos) const ;
     Cell* GetCellPtr(Position pos) ;
-
 private:
-	// Можете дополнить ваш класс нужными полями и методами
-   
     std::vector<std::vector<std::unique_ptr<Cell>>>table;
 };
